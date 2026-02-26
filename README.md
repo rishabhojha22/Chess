@@ -21,6 +21,10 @@
 
 ---
 
+<img width="1919" height="906" alt="image" src="https://github.com/user-attachments/assets/004d1b37-b6bd-4062-9f6a-18a7877941e6" />
+<img width="1919" height="908" alt="image" src="https://github.com/user-attachments/assets/3d7706b3-6756-43f6-a025-6b0574e6e3c2" />
+
+---
 ## Getting Started
 
 Set up and run Chess Game locally with these steps.
