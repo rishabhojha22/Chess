@@ -1,6 +1,6 @@
 # Chess Game
 
-A modern, feature-rich chess application built with **Next.js** and **React**. Designed for chess players of all levels, it offers a soft, responsive interface, customizable settings, multilingual support, and a smooth gameplay experience.
+"A modern, interactive chess application built with **Next.js** and **React**, featuring drag-and-drop gameplay, multilingual support, and customizable themes."
 ---
 
 ## Features
