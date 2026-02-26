@@ -1,0 +1,699 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 0 0% 10%;
+    --card: 0 0% 95%;
+    --card-foreground: 0 0% 10%;
+    --popover: 0 0% 95%;
+    --popover-foreground: 0 0% 10%;
+    --primary: 0 0% 15%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 90%;
+    --secondary-foreground: 0 0% 15%;
+    --muted: 0 0% 90%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 0 0% 90%;
+    --accent-foreground: 0 0% 15%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 85%;
+    --input: 0 0% 85%;
+    --ring: 0 0% 15%;
+    --radius: 0.5rem;
+    --font-family: var(--font-poppins);
+
+    /* Chess board colors */
+    --dark-square: #769656;
+    --light-square: #eeeed2;
+
+    /* Widget colors */
+    --widget-bg: 0 0% 95%;
+    --widget-border: 0 0% 85%;
+    --widget-header: 0 0% 90%;
+    --widget-highlight: 210 100% 50%;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+
+    /* Chess board colors */
+    --dark-square: #769656;
+    --light-square: #eeeed2;
+
+    /* Widget colors */
+    --widget-bg: 0 0% 12%;
+    --widget-border: 0 0% 20%;
+    --widget-header: 0 0% 15%;
+    --widget-highlight: 210 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-family);
+  }
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.neon-text {
+  text-shadow: 0 0 5px rgba(200, 200, 200, 0.5), 0 0 10px rgba(200, 200, 200, 0.3);
+}
+
+.neon-border {
+  box-shadow: 0 0 5px rgba(200, 200, 200, 0.5), 0 0 10px rgba(200, 200, 200, 0.3);
+}
+
+.chess-board-container {
+  box-shadow: 0 0 20px rgba(200, 200, 200, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.chess-board-container:hover {
+  box-shadow: 0 0 30px rgba(200, 200, 200, 0.3);
+}
+
+.move-animation {
+  transition: all 0.3s ease;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(200, 200, 200, 0.2);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(200, 200, 200, 0.3);
+}
+
+/* Glass morphism */
+.glass-panel {
+  background: rgba(30, 30, 30, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(200, 200, 200, 0.15);
+  transition: all 0.3s ease;
+}
+
+.glass-panel:hover {
+  background: rgba(35, 35, 35, 0.75);
+  border: 1px solid rgba(200, 200, 200, 0.2);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Light mode glass panel */
+.light .glass-panel {
+  background: rgba(245, 245, 245, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(100, 100, 100, 0.1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+}
+
+.light .glass-panel:hover {
+  background: rgba(250, 250, 250, 0.85);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Fullscreen mode styles */
+.fullscreen-mode {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.fullscreen-mode .board-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Ensure all interactive elements work properly */
+button,
+a,
+[role="button"] {
+  position: relative;
+  z-index: 10;
+}
+
+/* Prevent logo size changes on hover */
+a:hover img {
+  transform: none !important;
+}
+
+/* Custom chessboard styles */
+[data-square] {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+[data-square]:hover {
+  box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.2);
+}
+
+/* Add a spinning animation for the piece icon in the text indicator */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Text indicator for dragging pieces */
+#chess-drag-indicator {
+  pointer-events: none;
+  z-index: 9999;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  will-change: left, top;
+  transform: translate(20px, -20px);
+}
+
+.light #chess-drag-indicator {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Game container adjustments */
+.game-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure the show UI button is always clickable */
+.fullscreen-mode button {
+  z-index: 1000;
+}
+
+/* Add drop shadow for captured pieces */
+.filter.drop-shadow-glow {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+}
+
+.light .filter.drop-shadow-glow {
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.3));
+}
+
+/* Improved toast styling to match theme */
+.toast-container {
+  --toast-background: rgba(30, 30, 30, 0.95);
+  --toast-border: rgba(200, 200, 200, 0.2);
+  --toast-text: rgba(255, 255, 255, 0.95);
+}
+
+.toast {
+  background-color: var(--toast-background) !important;
+  border-color: var(--toast-border) !important;
+  color: var(--toast-text) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4) !important;
+  opacity: 1 !important;
+}
+
+.light .toast-container {
+  --toast-background: rgba(250, 250, 250, 0.98);
+  --toast-border: rgba(230, 230, 230, 0.9);
+  --toast-text: rgba(50, 50, 50, 0.95);
+}
+
+.light .toast {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15) !important;
+  opacity: 1 !important;
+}
+
+.toast-title {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.light .toast-title {
+  color: rgba(50, 50, 50, 0.95) !important;
+}
+
+.toast-description {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+.light .toast-description {
+  color: rgba(70, 70, 70, 0.9) !important;
+}
+
+/* Light mode adjustments */
+.light {
+  background-color: #f8f8f8;
+}
+
+.light .bg-neutral-800 {
+  background-color: #f0f0f0 !important;
+}
+
+.light .bg-neutral-900 {
+  background-color: #e8e8e8 !important;
+}
+
+.light .bg-neutral-800\/80 {
+  background-color: rgba(240, 240, 240, 0.9) !important;
+}
+
+.light .bg-neutral-900\/80 {
+  background-color: rgba(232, 232, 232, 0.9) !important;
+}
+
+.light .border-neutral-700 {
+  border-color: #d0d0d0 !important;
+}
+
+.light .border-neutral-800 {
+  border-color: #c8c8c8 !important;
+}
+
+.light .text-white,
+.light .text-gray-200,
+.light .text-gray-300 {
+  color: #333333 !important;
+}
+
+.light .text-gray-400 {
+  color: #555555 !important;
+}
+
+.light .text-gray-500 {
+  color: #777777 !important;
+}
+
+.light .hover\:bg-neutral-700:hover {
+  background-color: #e0e0e0 !important;
+}
+
+.light .bg-neutral-700\/30 {
+  background-color: rgba(220, 220, 220, 0.5) !important;
+}
+
+.light .border-neutral-700\/50 {
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+.light .border-neutral-600\/50 {
+  border-color: rgba(180, 180, 180, 0.5) !important;
+}
+
+/* Confirmation modal styles */
+.confirmation-modal {
+  background-color: var(--background);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.light .confirmation-modal {
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Improve table styling */
+table {
+  border-spacing: 0;
+}
+
+td,
+th {
+  transition: all 0.2s ease;
+}
+
+tr:hover td {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.light tr:hover td {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Light mode specific widget styling */
+.light .bg-gradient-to-br.from-neutral-700\/40.to-neutral-700\/20 {
+  background: linear-gradient(to bottom right, rgba(220, 220, 220, 0.7), rgba(230, 230, 230, 0.5)) !important;
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+.light .bg-gradient-to-r.from-neutral-800.to-neutral-700 {
+  background: linear-gradient(to right, #e8e8e8, #e0e0e0) !important;
+}
+
+.light .bg-neutral-700\/30 {
+  background-color: rgba(220, 220, 220, 0.5) !important;
+}
+
+.light .bg-neutral-700\/50 {
+  background-color: rgba(220, 220, 220, 0.7) !important;
+}
+
+.light .border-neutral-700\/30 {
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+.light .border-neutral-600\/50 {
+  border-color: rgba(180, 180, 180, 0.5) !important;
+}
+
+.light .border-neutral-700\/50 {
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+/* Button styling in light mode */
+.light button.bg-neutral-800\/80 {
+  background-color: rgba(240, 240, 240, 0.9) !important;
+  border-color: rgba(200, 200, 200, 0.5) !important;
+  color: #333 !important;
+}
+
+.light button.bg-neutral-800\/80:hover {
+  background-color: rgba(230, 230, 230, 0.9) !important;
+}
+
+.light button.bg-neutral-700 {
+  background-color: #e0e0e0 !important;
+  color: #333 !important;
+}
+
+.light button.bg-neutral-700:hover {
+  background-color: #d0d0d0 !important;
+}
+
+/* Chess board container in light mode */
+.light .chess-board-container {
+  background-color: rgba(240, 240, 240, 0.9) !important;
+  border-color: rgba(200, 200, 200, 0.5) !important;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.light .chess-board-container:hover {
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Turn indicator overlay */
+.turn-indicator-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.light .turn-indicator-overlay {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.turn-indicator-text {
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.light .turn-indicator-text {
+  background-color: rgba(255, 255, 255, 0.7);
+  color: black;
+}
+
+/* Turn indicator styling */
+.turn-indicator {
+  width: 100%;
+  text-align: center;
+}
+
+.light .turn-indicator > div {
+  background-color: rgba(240, 240, 240, 0.9) !important;
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+.light .turn-indicator .text-gray-200 {
+  color: #333333 !important;
+}
+
+.light .turn-indicator .text-gray-400 {
+  color: #666666 !important;
+}
+
+/* Ensure the fullscreen board has proper spacing for the indicator */
+.fullscreen-mode .chess-board-container {
+  margin-top: 0; /* Reduced margin for fullscreen mode */
+}
+
+/* Enhanced styling for the turn indicator */
+.turn-indicator-container {
+  position: relative;
+  z-index: 5;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.turn-indicator-container > div {
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Remove drag and drop related styles */
+.dragging-piece {
+  cursor: grabbing !important;
+  z-index: 100 !important;
+}
+
+/* Disable selection during drag */
+.dragging-active {
+  user-select: none;
+}
+
+/* Highlight valid drop targets */
+.valid-drop-target {
+  box-shadow: inset 0 0 0 4px rgba(0, 255, 0, 0.4) !important;
+}
+
+/* Highlight invalid drop targets */
+.invalid-drop-target {
+  box-shadow: inset 0 0 0 4px rgba(255, 0, 0, 0.4) !important;
+}
+
+/* Animation for piece return */
+@keyframes returnPiece {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.return-animation {
+  animation: returnPiece 0.3s ease-out;
+}
+
+/* Improve drag and drop visual feedback */
+.drag-hover {
+  box-shadow: inset 0 0 0 4px rgba(59, 130, 246, 0.5) !important;
+}
+
+/* Snap animation for successful drops */
+@keyframes snapToPosition {
+  0% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.snap-animation {
+  animation: snapToPosition 0.2s ease-out;
+}
+
+/* Disabled button styles */
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Improve button focus states */
+button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
+.light button:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+/* Fix for fullscreen mode spacing */
+.fullscreen-mode .board-wrapper {
+  gap: 0; /* Remove gap between indicator and board */
+}
+
+/* Improved light mode dialog styling */
+.light .bg-neutral-800\/90 {
+  background-color: rgba(240, 240, 240, 0.95) !important;
+}
+
+.light .text-white {
+  color: #333333 !important;
+}
+
+.light .text-gray-300 {
+  color: #555555 !important;
+}
+
+/* Fix navbar in light mode */
+.light .bg-neutral-900\/70 {
+  background-color: rgba(240, 240, 240, 0.9) !important;
+}
+
+.light .border-neutral-800\/50 {
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+/* Fix modal colors in light mode */
+.light .bg-neutral-800 {
+  background-color: #f5f5f5 !important;
+}
+
+.light .border-neutral-700 {
+  border-color: #dddddd !important;
+}
+
+/* Fix turn indicator in light mode */
+.light .turn-indicator-container > div {
+  background-color: rgba(240, 240, 240, 0.9) !important;
+  border-color: rgba(180, 180, 180, 0.7) !important;
+  color: #333333 !important;
+}
+
+/* Fix widget colors in light mode */
+.light .widget-card {
+  background-color: rgba(245, 245, 245, 0.9) !important;
+  border-color: rgba(200, 200, 200, 0.7) !important;
+}
+
+.light .widget-header {
+  background: linear-gradient(to right, #f0f0f0, #e8e8e8) !important;
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+.light .widget-panel {
+  background: linear-gradient(to bottom right, rgba(240, 240, 240, 0.7), rgba(230, 230, 230, 0.5)) !important;
+  border-color: rgba(200, 200, 200, 0.5) !important;
+}
+
+/* Add transition for board flipping */
+.transition-opacity {
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Add slide animations for chess pieces */
+@keyframes slideOutTop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutBottom {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+}
+
+@keyframes slideInTop {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInBottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
