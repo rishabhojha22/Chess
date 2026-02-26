@@ -3,26 +3,6 @@
 A modern, feature-rich chess application built with **Next.js** and **React**. Designed for chess players of all levels, it offers a soft, responsive interface, customizable settings, multilingual support, and a smooth gameplay experience.
 ---
 
-## Table of Contents
-
-- [Features](#features)
-- [Screenshots](#screenshots)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Customization](#customization)
-- [Project Structure](#project-structure)
-- [Built With](#built-with)
-- [Dependencies](#dependencies)
-- [Releases](#releases)
-- [Key Features Explained](#key-features-explained)
-- [License](#license)
-- [Acknowledgments](#acknowledgments)
-- [Contact](#contact)
-- [Contributing](#contributing)
-- [Support](#support)
-
----
-
 ## Features
 
 - Interactive Chess Board: Drag-and-drop or click-to-move piece movement.
@@ -100,61 +80,6 @@ Once the application is running, you can explore and customize it. Below are key
 ### Settings
 - **Purpose**: Customize the game experience.
 - **How to Use**: Access the settings menu to adjust themes, fonts, language, and timer options.
-
----
-
-## Customization
-
-Tailor Chess Game to your preferences.
-
-### Changing Colors
-Modify the theme in `tailwind.config.ts`:
-
-```typescript
-// tailwind.config.ts
-const config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: {
-          DEFAULT: "hsl(210, 50%, 50%)", // Customize here
-          foreground: "hsl(210, 10%, 95%)",
-        },
-      },
-    },
-  },
-};
-```
-
-Adjust CSS variables in `styles/global.css`:
-
-```css
-:root {
-  --primary: 210 50% 50%; /* Light mode */
-}
-
-.dark {
-  --primary: 210 50% 60%; /* Dark mode */
-}
-```
-
-### Updating Content
-Edit these files to tweak the UI:
-- Chessboard: `components/custom-chessboard.tsx`
-- Stats: `components/game-stats.tsx`
-- Move History: `components/move-history.tsx`
-- Translations: `lib/translations.ts`
-
-### Customizing Particle Background
-Adjust the animation in `components/particle-background.tsx` (if implemented separately):
-
-```typescript
-const particleCount = Math.min(100, Math.floor((window.innerWidth * window.innerHeight) / 10000));
-const colors = [
-  "rgba(0, 102, 204, 0.5)", // Adjust colors
-  "rgba(51, 153, 255, 0.5)",
-];
-```
 
 ---
 
@@ -256,4 +181,4 @@ This project is licensed under the [MIT License](LICENSE). See the license file 
 ---
 
 **Developed by Rishabh Ojha**   
-© 2025 Chess Game. All rights reserved.
+© 2026 Chess Game. All rights reserved.
